@@ -9,6 +9,7 @@ npm-debug.*
 *.orig.*
 web-build/
 old.js
+ios_demo.mov
 
 # macOS
 .DS_Store

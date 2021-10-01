@@ -3,7 +3,8 @@
 Extra: when checked, remove item from list/object (SME: Sam, Darla | Dev:  Albert, Myles)
 
 Interaction: After a user checks the box, they will be presented with a dialog to confirm they wish to delete it.
-If they confirm it, then the item will be removed.  
+If they confirm it, then the item will be removed. 
+ 
 Assets: An alert or some sort of dialogue for confirmation when the box is checked.
 Alert needs to have a button or other input for the user to confirm with. 
 Functionality to remove the item from the object upon confirmation (grab key/id from object, remove item from object, update state object).
@@ -30,7 +31,7 @@ const App = () => {
 
   /**
    * this only works on iOS/Android devices :(
-   * @param {*} key 
+   * @param {number} key 
    */
   const handleButtonPressNative = (key) => {
     Alert.alert(
@@ -42,16 +43,19 @@ const App = () => {
       ]
     )
   }
+  
+  // const handleButtonPressWeb = (key) => {}
 
-  const handleButtonPressWeb = (key) => {
-
-  }
-
+  /**
+   * handler for Alert box onPress
+   * @param {boolean} confirmRemove 
+   * @param {number} keyToRemove 
+   */
   const handleConfirmation = (confirmRemove = false, keyToRemove) => {
     if (confirmRemove) {
     // remove item from object list!
       const newItems = {};
-      
+      // places all entries except for the entry the user wants to remove in a new object
       for (const [key, value] of Object.entries(items)) {
         if (key !== keyToRemove) {
           newItems[key] = value;
