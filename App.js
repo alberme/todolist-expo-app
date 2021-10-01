@@ -13,56 +13,66 @@ Expected Outcome: The user will easily be able to interact with the app to delet
 with a method to confirm their intention to delete.
 * 
 */
-import React, { useState } from 'react';
-import { View, Text, Button, Alert } from 'react-native';
-import { CheckBox } from 'react-native-elements'
 
-const TodoConfirmation = () => {
-  // const [confirmation, setConfirmation] = useState(false);
+/**
+ * solution for this error when running on iOS
+ * Invariant Violation: Tried to register two views with the same name RNCSafeAreaProvider
+ * https://github.com/th3rdwave/react-native-safe-area-context/issues/110#issuecomment-668864576
+ */
+
+import React, { useState } from 'react';
+import { View, Text, Button, Alert, StyleSheet } from 'react-native';
+import { CheckBox, } from 'react-native-elements'
+
+const App = () => {
   const [items, setItems] = useState({1: 'do stuff', 2: 'defy death', 3: 'do it well'});
   const [checked, setChecked] = useState(false);
 
-  const handleButtonPress = (key) => {
+  /**
+   * this only works on iOS/Android devices :(
+   * @param {*} key 
+   */
+  const handleButtonPressNative = (key) => {
     Alert.alert(
       "Confirm",
       "Are you sure you want to remove this entry?",
       [
-        {
-          text: "Yes",
-          onPress: () => handleConfirmation(true, key),
-          style: "destructive"
-        },
-        { text: "NO", onPress: () => handleConfirmation(false), style: "default" }
+        { text: "Yes", onPress: () => handleConfirmation(true, key), style: "destructive" },
+        { text: "NOOO", onPress: () => handleConfirmation(false), style: "default" }
       ]
     )
   }
+
+  const handleButtonPressWeb = (key) => {
+
+  }
+
   const handleConfirmation = (confirmRemove = false, keyToRemove) => {
     if (confirmRemove) {
     // remove item from object list!
-    const newItems = {};
-    
-    // {1: 'do stuff', 2: 'defy death', 3: 'do it well'}
-    for (const [key, value] of Object.entries(items)) {
-      if (key !== keyToRemove) {
-        newItems[key] = value;
+      const newItems = {};
+      
+      for (const [key, value] of Object.entries(items)) {
+        if (key !== keyToRemove) {
+          newItems[key] = value;
+        }
       }
+      setItems(newItems);
     }
-    setItems(newItems);
-    } else {
-      console.log('user clicked NO!');
-    }
+
+    console.log(`user pressed ${confirmRemove ? 'YES' : 'NO'}`);
     setChecked(false);
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       {
-        Object.keys().map(key => (
-          <View key={key}>
-            <Text>{ items[key] }</Text>
+        Object.keys(items).map(key => (
+          <View style={styles.todoRow} key={key} >
+            <Text style={styles.todoText}>{ items[key] }</Text>
             <CheckBox
               checked={checked}
-              onPress={() => handleButtonPress(key)}
+              onPress={() => handleButtonPressNative(key)}
             ></CheckBox>
           </View>
         )
@@ -72,4 +82,27 @@ const TodoConfirmation = () => {
   )
 }
 
-export default TodoConfirmation;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#f2fcff',
+    marginHorizontal: '3%',
+    marginTop: '10%',
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: 'lightgray',
+  },
+  todoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    borderBottomWidth: 2,
+    borderBottomColor: 'lightgray',
+  },
+  todoText: {
+    fontSize: 16,
+  }
+})
+
+export default App;
