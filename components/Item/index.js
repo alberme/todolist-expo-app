@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { styles } from './styled';
 
-const Item = ({ id, onCheck, onConfirmation, children }) => {
+const Item = ({ id, onConfirmation, children }) => {
+  const [checked, setChecked] = useState(false); // we might not need this anymore
 
   /**
    * this only works on iOS/Android devices :(
    * @param {number} itemId 
    */
-  const handleButtonPressNative = (itemId) => {
+  const handleCheckboxPressNative = (itemId) => {
     Alert.alert(
       "Confirm",
       "Are you sure you want to remove this entry?",
@@ -17,23 +19,23 @@ const Item = ({ id, onCheck, onConfirmation, children }) => {
         { text: "Yes", onPress: () => onConfirmation(true, itemId), style: "destructive" },
         { text: "NOOO", onPress: () => onConfirmation(false), style: "default" }
       ]
-    )
+    );
+    onConfirmation(true, itemId)
   }
 
   return (
     <View style={styles.itemRow}>
       <CheckBox
         checked={checked}
-        onPress={() => handleButtonPressNative(id)}
+        onPress={() => handleCheckboxPressNative(id)}
       />
-      <Text style={styles.itemText}>{children}</Text>
+      <Text style={styles.itemText}>{ children }</Text>
     </View>
   )
 }
 
 Item.propTypes = {
   id: PropTypes.number.isRequired,
-  onCheck: PropTypes.func,
   onConfirmation: PropTypes.func,
 };
 
