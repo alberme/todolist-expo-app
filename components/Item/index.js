@@ -1,21 +1,21 @@
 import PropTypes from 'prop-types';
 import { Alert, Text, View } from 'react-native';
 import { CheckBox } from 'react-native-elements';
-import { styles } from 'styled.js';
+import { styles } from './styled';
 
-const Item = ({ onCheck, children }) => {
+const Item = ({ id, onCheck, onConfirmation, children }) => {
 
   /**
    * this only works on iOS/Android devices :(
-   * @param {number} key 
+   * @param {number} itemId 
    */
-  const handleButtonPressNative = (key) => {
+  const handleButtonPressNative = (itemId) => {
     Alert.alert(
       "Confirm",
       "Are you sure you want to remove this entry?",
       [
-        { text: "Yes", onPress: () => handleConfirmation(true, key), style: "destructive" },
-        { text: "NOOO", onPress: () => handleConfirmation(false), style: "default" }
+        { text: "Yes", onPress: () => onConfirmation(true, itemId), style: "destructive" },
+        { text: "NOOO", onPress: () => onConfirmation(false), style: "default" }
       ]
     )
   }
@@ -24,16 +24,17 @@ const Item = ({ onCheck, children }) => {
     <View style={styles.itemRow}>
       <CheckBox
         checked={checked}
-        onPress={() => handleButtonPressNative(key)}
+        onPress={() => handleButtonPressNative(id)}
       />
       <Text style={styles.itemText}>{children}</Text>
     </View>
-    
   )
 }
 
 Item.propTypes = {
+  id: PropTypes.number.isRequired,
   onCheck: PropTypes.func,
+  onConfirmation: PropTypes.func,
 };
 
 export default Item;
