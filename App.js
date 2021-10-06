@@ -29,20 +29,6 @@ const App = () => {
   const [items, setItems] = useState({1: 'do stuff', 2: 'defy death', 3: 'do it well'});
   const [checked, setChecked] = useState(false);
 
-  /**
-   * this only works on iOS/Android devices :(
-   * @param {number} key 
-   */
-  const handleButtonPressNative = (key) => {
-    Alert.alert(
-      "Confirm",
-      "Are you sure you want to remove this entry?",
-      [
-        { text: "Yes", onPress: () => handleConfirmation(true, key), style: "destructive" },
-        { text: "NOOO", onPress: () => handleConfirmation(false), style: "default" }
-      ]
-    )
-  }
   
   // const handleButtonPressWeb = (key) => {}
 
