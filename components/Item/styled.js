@@ -4,11 +4,14 @@ export const styles = StyleSheet.create({
   itemRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     borderBottomWidth: 2,
     borderBottomColor: 'lightgray',
+
+    paddingRight: '3%',
   },
   itemText: {
-    fontSize: 16,
+    color: 'gray',
+    fontSize: 24,
   }
 });
