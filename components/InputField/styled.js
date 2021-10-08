@@ -2,9 +2,11 @@ import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   inputContainer: {
-    paddingHorizontal: 0,
+    padding: 10,
+    textAlign: 'right',
+    width: 'calc(80% - 30px)'
   },
   icon: {
-    paddingRight: '1%',
+    paddingRight: 10,
   }
 });

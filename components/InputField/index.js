@@ -41,16 +41,16 @@ const InputField = ({ onEnter, status }) => {
 
   return (
     <View>
+      { showAlert && renderAlert() }
       <RNETextInput
         placeholder="enter here!"
         leftIcon={{ type: 'font-awesome', name: 'angle-double-right' }}
         leftIconContainerStyle={styles.icon}
-        containerStyle={styles.inputContainer}
+        inputStyle={styles.inputContainer}
         onChangeText={(text) => setItemText(text)}
         onKeyPress={handleKeyPress}
         value={itemText}
       />
-      { showAlert && renderAlert() }
     </View>
   )
 }

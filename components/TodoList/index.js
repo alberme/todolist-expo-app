@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Platform } from 'react-native';
+import { View, Platform, ScrollView } from 'react-native';
 import { Text as RNEText } from 'react-native-elements';
 
 import { styles } from './styled'
@@ -18,12 +18,28 @@ const TodoList = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [selectedId, setSelectedId] = useState(-1);
 
- /* @todo: expand this predicate to trim() extra whitespaces
-  check empty string, single/double quotes,
-  illegal characters to prevent database injection, etc.
+ /**
+  * @todo: expand this predicate to trim() extra whitespaces in between words,
+  * check empty string, single/double quotes,
+  * illegal characters to prevent database injection, etc.
+  * @param {string} inputFieldText
   */
   const checkInputFieldText = (inputFieldText) => {
-    return items.every(item => item.todo.toLowerCase() !== inputFieldText.toLowerCase())
+    // trim blank spaces around, convert to lowercase
+    let cleanedText = inputFieldText.trim().toLowerCase();
+    // checks for illegal characters
+    if ( !(/^[a-zA-Z0-9- ]*$/.test(cleanedText)) ) {
+      return { error: 'Only letters and numbers are allowed 🚫' };
+    }
+    // checks if string length is 0
+    if (cleanedText.length === 0) {
+      return { error: 'That input is blank! 🚫' };
+    }
+    // checks each todo list item for duplicates
+    const isNotDuplicate = items.every(item => item.todo.toLowerCase() !== cleanedText)
+    return isNotDuplicate
+      ? { success: 'Item added to your todo list ✅' }
+      : { error: 'That todo list item is a duplicate 🚫' };
   }
 
  /**
@@ -72,18 +88,14 @@ const TodoList = () => {
    * @param {string} newTodo
    */
   const handleInputOnEnter = (newTodo) => {
-    const itemTextIsValid = checkInputFieldText(newTodo);
+    const itemTextStatus = checkInputFieldText(newTodo);
 
-    if (itemTextIsValid) {
+    if (itemTextStatus.success) {
       const newTodoList = [ ...items, {todo: newTodo} ];
       setItems(newTodoList);
     }
 
-    setInputFieldStatus(
-      itemTextIsValid
-        ? { success: 'Item added to your todo list ✅' }
-        : { error: 'That todo list item is a duplicate 🚫' }
-    );
+    setInputFieldStatus(itemTextStatus);
   }
 
   // best practice - use unique id as key (ex: nanoid)
@@ -104,6 +116,7 @@ const TodoList = () => {
       >
         My Todo List
       </RNEText>
+      <ScrollView style={styles.scroll}>
       {
         items.map((item, i) => (
           <Item
@@ -115,6 +128,7 @@ const TodoList = () => {
           </Item>
         ))
       }
+      </ScrollView>
       <InputField
         onEnter={handleInputOnEnter}
         status={inputFieldStatus}

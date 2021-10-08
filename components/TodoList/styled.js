@@ -11,8 +11,13 @@ export const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     borderColor: 'lightgray',
+    height: '100%',
   },
   title: {
     paddingBottom: '5%',
+  },
+  scroll: {
+    flexGrow: 1,
+    height: 100,
   }
 });
