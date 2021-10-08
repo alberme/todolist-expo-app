@@ -49,7 +49,6 @@ const TodoList = () => {
   */
   const handleDialogResponse = (confirmRemove) => {
     if (confirmRemove) {
-      console.log(`selectedId is ${selectedId}`);
 
       // remove item from list!
       const updatedTodoList = items.filter( (item, id)=> id !== selectedId );
@@ -57,8 +56,6 @@ const TodoList = () => {
     }
     setShowDialog(false);
     setSelectedId(-1);
-
-    console.log(`user pressed ${confirmRemove ? 'YES' : 'NO'}`);
   }
 
  /**
