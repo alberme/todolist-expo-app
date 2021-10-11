@@ -10,12 +10,18 @@ const InputField = ({ onEnter, status }) => {
   const [itemText, setItemText] = useState('');
   const [showAlert, setShowAlert] = useState(false);
 
+  /**
+   * handler for user submit in InputField
+   * @listens onKeyPress InputField
+   * @param {NativeEvent} e 
+   */
   const handleKeyPress = ({ nativeEvent: e }) => {
-    // event.key = 'Enter', 'Backspace', ' '
+    // hide visible Alert box when user types
     if (showAlert) {
       setShowAlert(false);
     }
-
+    
+    // e.key = 'Enter', 'Backspace', ' '
     if (e.key === "Enter") {
       onEnter(itemText);
       setShowAlert(true);
@@ -24,8 +30,8 @@ const InputField = ({ onEnter, status }) => {
   }
 
   /**
-   * render logic for Alert box below InputField
-   * @returns <Alert> | null
+   * render logic for Alert box above InputField
+   * @returns {Alert | null}
    */
   const renderAlert = () => {
     if (status && Object.keys(status).length > 0) {
