@@ -43,13 +43,12 @@ const TodoList = () => {
   }
 
  /**
-  * handler for Alert box onPress
-  * @param {boolean} confirmRemove 
-  * @param {number} idToRemove 
+  * handler for buttons on BrowserDialog
+  * @listens onPress BrowserDialog
+  * @param {boolean} confirmRemove
   */
   const handleDialogResponse = (confirmRemove) => {
     if (confirmRemove) {
-
       // remove item from list!
       const updatedTodoList = items.filter( (item, id)=> id !== selectedId );
       setItems(updatedTodoList);
@@ -59,8 +58,9 @@ const TodoList = () => {
   }
 
  /**
-  * handles checkbox press on item in todo list
-  * @param {number} itemId 
+  * handler for checkbox press from Item
+  * @listens onCheckboxPress Item
+  * @param {number} itemId
   */
   const handleCheckboxPress = (itemId) => {
     setSelectedId(itemId);
@@ -81,7 +81,8 @@ const TodoList = () => {
   }
 
   /**
-   * handler for input field onEnter
+   * handler for user input from InputField
+   * @listens onEnter InputField
    * @param {string} newTodo
    */
   const handleInputOnEnter = (newTodo) => {
