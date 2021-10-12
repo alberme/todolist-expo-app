@@ -24,7 +24,9 @@ export const styles = StyleSheet.create({
     
   },
   dialog: {
-    border: 'solid 1px #000',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#000',
     margin: '0 auto',
     borderRadius: 5,
     padding: 30,
@@ -37,7 +39,9 @@ export const styles = StyleSheet.create({
     marginTop: 30,
   },
   responseValue: {
-    border: 'solid 1px #000',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#000',
     padding: 20,
     borderRadius: 5,
     marginTop: 30,
