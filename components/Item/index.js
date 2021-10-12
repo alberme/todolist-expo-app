@@ -10,6 +10,7 @@ const Item = ({ id, onCheckboxPress, children }) => {
   return (
     <View style={styles.itemRow}>
       <CheckBox
+        containerStyle={styles.checkboxContainer}
         checked={checked}
         onPress={() => onCheckboxPress(id)}
       />

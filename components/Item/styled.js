@@ -13,5 +13,8 @@ export const styles = StyleSheet.create({
   itemText: {
     color: 'gray',
     fontSize: 24,
-  }
+  },
+  checkboxContainer: {
+    marginLeft: 0,
+  },
 });
