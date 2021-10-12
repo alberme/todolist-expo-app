@@ -58,6 +58,8 @@ const TodoList = () => {
     if (Platform.OS === 'web') {
       setBrowserDialog({ show: false, selectedId: -1 });
     }
+    // hides the alert box above the input field
+    setInputFieldStatus({});
   }
 
  /**
@@ -71,8 +73,8 @@ const TodoList = () => {
       setBrowserDialog({ show: true, selectedId: itemId });
     } else {
       Alert.alert(
-        "Confirm",
-        "Remove this entry?",
+        "Remove This Entry?",
+        items[itemId].todo,
         [
           { text: "Yes", onPress: () => handleDialogResponse(true, itemId), style: "destructive" },
           { text: "NOOO", onPress: () => handleDialogResponse(false, itemId), style: "default" },
