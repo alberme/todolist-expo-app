@@ -21,7 +21,7 @@ const Item = ({ id, onCheckboxPress, children }) => {
 
 Item.propTypes = {
   id: PropTypes.number.isRequired,
-  onCheckboxPress: PropTypes.func.isRequired,
+  onCheckboxPress: PropTypes.func,
 };
 
 export default Item;
