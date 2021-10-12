@@ -13,6 +13,9 @@ export const styles = StyleSheet.create({
     borderColor: 'lightgray',
     height: '100%',
   },
+  todoContainer: {
+    flex: 1,
+  },
   title: {
     paddingBottom: '5%',
   },
