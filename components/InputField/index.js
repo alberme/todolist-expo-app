@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { View, TextInput } from 'react-native';
+import { View } from 'react-native';
 import { Input as RNETextInput } from 'react-native-elements';
 
 import { styles } from './styled';
@@ -11,26 +11,30 @@ const InputField = ({ onEnter, status }) => {
   const [showAlert, setShowAlert] = useState(false);
 
   /**
-   * handler for user submit in InputField
+   * called when a key is pressed
    * @listens onKeyPress InputField
-   * @param {NativeEvent} e 
+   * @param {SyntheticEvent} nativeEvent
    */
-  const handleKeyPress = ({ nativeEvent: e }) => {
+  const handleKeyPress = ({ nativeEvent: { key } }) => {
     // hide visible Alert box when user types
     if (showAlert) {
       setShowAlert(false);
     }
-    
-    // e.key = 'Enter', 'Backspace', ' '
-    if (e.key === "Enter") {
-      onEnter(itemText);
-      setShowAlert(true);
-      setItemText('');
-    }
   }
 
   /**
-   * render logic for Alert box above InputField
+   * called when the user submits in text input
+   * @listens onSubmitEditing InputField
+   * @param {SyntheticEvent} nativeEvent
+   */
+  const handleOnSubmit = ({ nativeEvent: { text } }) => {
+    onEnter(itemText);
+    setShowAlert(true);
+    setItemText('');
+  }
+
+  /**
+   * render logic for Alert box above text input
    * @returns {Alert | null}
    */
   const renderAlert = () => {
@@ -55,6 +59,7 @@ const InputField = ({ onEnter, status }) => {
         inputStyle={styles.inputContainer}
         onChangeText={(text) => setItemText(text)}
         onKeyPress={handleKeyPress}
+        onSubmitEditing={handleOnSubmit}
         value={itemText}
       />
     </View>
@@ -62,7 +67,7 @@ const InputField = ({ onEnter, status }) => {
 }
 
 InputField.propTypes = {
-  onEnter: PropTypes.func.isRequired,
+  onEnter: PropTypes.func,
   status: PropTypes.shape({
     success: PropTypes.string,
     error: PropTypes.string,
