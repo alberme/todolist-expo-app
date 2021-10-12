@@ -2,23 +2,21 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   alertContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    margin: '1%',
-    padding: '1%',
-    paddingHorizontal: '2%',
+    marginVertical: 5,
+    padding: 5,
     borderWidth: 2,
-    borderRadius: 10,
+    borderRadius: 5,
   },
   alertText: {
-    fontSize: 16
+    fontSize: 16,
+    textAlign: 'center',
   },
   error: {
     backgroundColor: '#ff9494',
-    borderColor: 'red'
+    borderColor: 'red',
   },
   success: {
     backgroundColor: '#e8ffe8',
-    borderColor: 'green'
+    borderColor: 'green',
   },
 });
