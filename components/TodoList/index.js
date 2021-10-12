@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Platform, ScrollView } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, Platform, ScrollView, KeyboardAvoidingView, Alert } from 'react-native';
 import { Text as RNEText } from 'react-native-elements';
 
 import { styles } from './styled'
@@ -14,9 +14,9 @@ const TodoList = () => {
     { todo: 'make cool stuff' },
     { todo: 'do it well' },
   ]);
+  const [browserDialog, setBrowserDialog] = useState({ show: false, selectedId: -1 });
   const [inputFieldStatus, setInputFieldStatus] = useState({});
-  const [showDialog, setShowDialog] = useState(false);
-  const [selectedId, setSelectedId] = useState(-1);
+  const scrollView = useRef(null);
 
  /**
   * @todo: expand this predicate to trim() extra whitespaces in between words,
@@ -43,45 +43,46 @@ const TodoList = () => {
   }
 
  /**
-  * handler for buttons on BrowserDialog
-  * @listens onPress BrowserDialog
+  * called when user presses a button in popup dialog
+  * @listens onPress Alert
+  * @listens onResponse BrowserDialog
   * @param {boolean} confirmRemove
+  * @param {number} idToRemove
   */
-  const handleDialogResponse = (confirmRemove) => {
+  const handleDialogResponse = (confirmRemove, idToRemove) => {
     if (confirmRemove) {
       // remove item from list!
-      const updatedTodoList = items.filter( (item, id)=> id !== selectedId );
+      const updatedTodoList = items.filter( (item, id)=> id !== idToRemove );
       setItems(updatedTodoList);
     }
-    setShowDialog(false);
-    setSelectedId(-1);
+    if (Platform.OS === 'web') {
+      setBrowserDialog({ show: false, selectedId: -1 });
+    }
   }
 
  /**
-  * handler for checkbox press from Item
+  * called when a checkbox on a todo list item is pressed
   * @listens onCheckboxPress Item
   * @param {number} itemId
   */
   const handleCheckboxPress = (itemId) => {
-    setSelectedId(itemId);
-    
     if (Platform.OS === 'web') {
       // setShowDialog here to render a web dialog
-      setShowDialog(true);
+      setBrowserDialog({ show: true, selectedId: itemId });
     } else {
       Alert.alert(
         "Confirm",
         "Remove this entry?",
         [
-          { text: "Yes", onPress: () => handleDialogResponse(true), style: "destructive" },
-          { text: "NOOO", onPress: () => handleDialogResponse(false), style: "default" },
+          { text: "Yes", onPress: () => handleDialogResponse(true, itemId), style: "destructive" },
+          { text: "NOOO", onPress: () => handleDialogResponse(false, itemId), style: "default" },
         ]
       );
     }
   }
 
   /**
-   * handler for user input from InputField
+   * called when user submits text in input field
    * @listens onEnter InputField
    * @param {string} newTodo
    */
@@ -101,10 +102,10 @@ const TodoList = () => {
   return (
     <View style={styles.container}>
       {
-        showDialog
+        browserDialog.show
           ? <BrowserDialog
-              onResponse={handleDialogResponse}
-              message={ `Remove this entry?\n\n${items[selectedId].todo}` }
+              onResponse={response => handleDialogResponse(response, browserDialog.selectedId)}
+              message={ `Remove this entry?\n\n${items[ browserDialog.selectedId ].todo}` }
             />
           : null
       }
@@ -114,23 +115,34 @@ const TodoList = () => {
       >
         My Todo List
       </RNEText>
-      <ScrollView style={styles.scroll}>
-      {
-        items.map((item, i) => (
-          <Item
-            key={i}
-            id={i}
-            onCheckboxPress={handleCheckboxPress}
-          >
-            {item.todo}
-          </Item>
-        ))
-      }
-      </ScrollView>
-      <InputField
-        onEnter={handleInputOnEnter}
-        status={inputFieldStatus}
-      />
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={styles.todoContainer}
+      >
+        <ScrollView
+          ref={scrollView}
+          onContentSizeChange={ () => scrollView.current.scrollToEnd({ animated: true }) }
+          keyboardDismissMode={Platform.OS === 'ios' ? 'interactive' : 'on-drag'}
+          keyboardShouldPersistTaps="always"
+          style={styles.scroll}
+        >
+        {
+          items.map((item, i) => (
+            <Item
+              key={i}
+              id={i}
+              onCheckboxPress={handleCheckboxPress}
+            >
+              {item.todo}
+            </Item>
+          ))
+        }
+        </ScrollView>
+        <InputField
+          onEnter={handleInputOnEnter}
+          status={inputFieldStatus}
+        />
+      </KeyboardAvoidingView>
     </View>
   );
 }
