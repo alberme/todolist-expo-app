@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     left: '50%',
     width: '100%',
     height: '100%',
-    transform: 'translate(-50%, -50%)',
+    transform: [{ translateX: '-50%' }, { translateY: '-50%' }],
     zIndex: 9999,
   },
   dialogContainer : {
