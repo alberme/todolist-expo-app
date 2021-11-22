@@ -118,7 +118,7 @@ const TodoList = () => {
         My Todo List
       </RNEText>
       <KeyboardAvoidingView
-        behavior="padding"
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.todoContainer}
       >
         <ScrollView
