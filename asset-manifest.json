@@ -1,0 +1,38 @@
+{
+  "files": {
+    "app.js": "/todolist-expo-app/static/js/app.efc1a7d4.chunk.js",
+    "app.js.map": "/todolist-expo-app/static/js/app.efc1a7d4.chunk.js.map",
+    "runtime~app.js": "/todolist-expo-app/static/js/runtime~app.92e27237.js",
+    "runtime~app.js.map": "/todolist-expo-app/static/js/runtime~app.92e27237.js.map",
+    "static/js/2.c00b1ea3.chunk.js": "/todolist-expo-app/static/js/2.c00b1ea3.chunk.js",
+    "static/js/2.c00b1ea3.chunk.js.map": "/todolist-expo-app/static/js/2.c00b1ea3.chunk.js.map",
+    "fonts/AntDesign.ttf": "/todolist-expo-app/./fonts/AntDesign.ttf",
+    "fonts/Entypo.ttf": "/todolist-expo-app/./fonts/Entypo.ttf",
+    "fonts/Feather.ttf": "/todolist-expo-app/./fonts/Feather.ttf",
+    "fonts/FontAwesome.ttf": "/todolist-expo-app/./fonts/FontAwesome.ttf",
+    "fonts/FontAwesome5_Brands.ttf": "/todolist-expo-app/./fonts/FontAwesome5_Brands.ttf",
+    "fonts/FontAwesome5_Solid.ttf": "/todolist-expo-app/./fonts/FontAwesome5_Solid.ttf",
+    "fonts/Fontisto.ttf": "/todolist-expo-app/./fonts/Fontisto.ttf",
+    "fonts/Foundation.ttf": "/todolist-expo-app/./fonts/Foundation.ttf",
+    "fonts/Ionicons.ttf": "/todolist-expo-app/./fonts/Ionicons.ttf",
+    "fonts/MaterialCommunityIcons.ttf": "/todolist-expo-app/./fonts/MaterialCommunityIcons.ttf",
+    "fonts/MaterialIcons.ttf": "/todolist-expo-app/./fonts/MaterialIcons.ttf",
+    "fonts/SimpleLineIcons.ttf": "/todolist-expo-app/./fonts/SimpleLineIcons.ttf",
+    "favicon-16.png": "/todolist-expo-app/favicon-16.png",
+    "favicon-32.png": "/todolist-expo-app/favicon-32.png",
+    "favicon.ico": "/todolist-expo-app/favicon.ico",
+    "index.html": "/todolist-expo-app/index.html",
+    "manifest.json": "/todolist-expo-app/manifest.json",
+    "serve.json": "/todolist-expo-app/serve.json",
+    "static/js/2.c00b1ea3.chunk.js.LICENSE.txt": "/todolist-expo-app/static/js/2.c00b1ea3.chunk.js.LICENSE.txt",
+    "static/media/bell.png": "/todolist-expo-app/static/media/bell.cf04af27.png",
+    "static/media/heart.png": "/todolist-expo-app/static/media/heart.23b5c2c0.png",
+    "static/media/rocket.png": "/todolist-expo-app/static/media/rocket.d2f3bf41.png",
+    "static/media/star.png": "/todolist-expo-app/static/media/star.69c71386.png"
+  },
+  "entrypoints": [
+    "static/js/runtime~app.92e27237.js",
+    "static/js/2.c00b1ea3.chunk.js",
+    "static/js/app.efc1a7d4.chunk.js"
+  ]
+}
